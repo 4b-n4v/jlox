@@ -76,6 +76,23 @@ class Scanner {
 			case '>':
 				addToken(match('=') ? GREATER_EQUAL : GREATER);
 				break;
+			case '/':
+				if (match('/')) {
+					// A comment goes until the end of the line.
+					while (peek() != '\n' && !isAtEnd())
+						advance(); // Keep advancing until the end of the comment line
+				} else {
+					addToken(SLASH);
+				}
+				break;
+			case ' ':
+			case '\r':
+			case '\t':
+				// Ignore whitespace
+				break;
+			case 'n':
+				line++;
+				break;
 			default:
 				Lox.error(line, "Unexpected character.");
 				break;
@@ -83,6 +100,7 @@ class Scanner {
 		}
 	}
 
+	// HELPER: Look at the next character return true if character matches current.
 	private boolean match(char expected) {
 		if (isAtEnd())
 			return false;
@@ -93,18 +111,24 @@ class Scanner {
 		return true;
 	}
 
+	// HELPER: return true if current is at or exceeded the length of the source
+	// text.
 	private boolean isAtEnd() {
 		return current >= source.length();
 	}
 
+	// HELPER: Return next character, increment current.
 	private char advance() {
 		return source.charAt(current++);
 	}
 
+	// Add Token
+	// Function Overloading
 	private void addToken(TokenType type) {
 		addToken(type, null);
 	}
 
+	// Add token with specific type.
 	private void addToken(TokenType type, Object literal) {
 		String text = source.substring(start, current);
 		tokens.add(new Token(type, text, literal, line));
