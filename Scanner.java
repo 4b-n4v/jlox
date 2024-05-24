@@ -93,11 +93,45 @@ class Scanner {
 			case 'n':
 				line++;
 				break;
+			// String literals
+			case '"':
+				string();
+				break;
 			default:
 				Lox.error(line, "Unexpected character.");
 				break;
 
 		}
+	}
+
+	// HELPER: Looks for characters encased in " ".
+
+	private void string() {
+		while (peek() != '"' && !isAtEnd()) { // While the character is not an end quation nor at the end of the source
+			if (peek() == '\n') // If character is a new line, then increment line
+				line++;
+			advance(); // Keep going through text
+		}
+
+		if (isAtEnd()) { // If we're at the end of the source, the string has not been terminated.
+			Lox.error(line, "Unterminated string.");
+			return; // Early return
+		}
+
+		// The closing ".
+		advance();
+
+		// Trim the quotation marks
+		String value = source.substring(start + 1, current - 1);
+		addToken(STRING, value);
+	}
+
+	// HELPER: Looks at the character but does not consume it as a lexeme.
+	private char peek() {
+		if (isAtEnd())
+			return '\0';
+
+		return source.charAt(current);
 	}
 
 	// HELPER: Look at the next character return true if character matches current.
