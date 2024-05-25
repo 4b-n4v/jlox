@@ -98,9 +98,13 @@ class Scanner {
 				string();
 				break;
 			default:
-				Lox.error(line, "Unexpected character.");
-				break;
+				if (isDigit(c)) {
+					number();
+				} else {
+					Lox.error(line, "Unexpected character.");
+				}
 
+				break;
 		}
 	}
 
@@ -132,6 +136,11 @@ class Scanner {
 			return '\0';
 
 		return source.charAt(current);
+	}
+
+	// HELPER: check if character is a digit.
+	private boolean isDigit(c) {
+		return c >= '0' && c <= '9';
 	}
 
 	// HELPER: Look at the next character return true if character matches current.
