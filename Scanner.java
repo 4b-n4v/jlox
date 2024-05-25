@@ -101,12 +101,22 @@ class Scanner {
 			default:
 				if (isDigit(c)) {
 					number();
+				} else if (isAlpha(c)) {
+					identifier();
 				} else {
 					Lox.error(line, "Unexpected character.");
 				}
 
 				break;
 		}
+	}
+
+	// HELPER: Scans for identifiers
+	private void identifier() {
+		while (isAlphaNumeric(peek()))
+			advance();
+
+		addToken(IDENTIFIER);
 	}
 
 	// HELPER: Looks for integers and floating point numbers
@@ -160,6 +170,18 @@ class Scanner {
 			return '\0';
 
 		return source.charAt(current + 1);
+	}
+
+	// HELPER: Looks if character is alphabetic
+	private boolean isAlpha(char c) {
+		return (c >= 'a' && c <= 'z') ||
+				(c >= 'A' && c <= 'Z') ||
+				c == '_';
+
+	}
+
+	private boolean isAlphaNumeric(char c) {
+		return isAlpha(c) || isDigit(c);
 	}
 
 	// HELPER: check if character is a digit.
