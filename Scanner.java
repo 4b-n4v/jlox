@@ -16,7 +16,7 @@ class Scanner {
 	private static final Map<String, TokenType> keywords;
 
 	static {
-		keywords = new Hashmap<>();
+		keywords = new HashMap<>();
 		keywords.put("and", AND);
 		keywords.put("class", CLASS);
 		keywords.put("else", ELSE);
@@ -210,7 +210,7 @@ class Scanner {
 	}
 
 	// HELPER: check if character is a digit.
-	private boolean isDigit(c) {
+	private boolean isDigit(char c) {
 		return c >= '0' && c <= '9';
 	}
 
