@@ -19,4 +19,27 @@ public class GenerateAst {
 				"Unary		: Token operator, Expr right"));
 	}
 
+	private static void defineAST(
+		String outputDir, String baseName, List<String> types)
+		throw IOException {
+		String path = outputDir +  "/"  + baseName + ".java";
+		PrintWriter writer  = new PrintWriter(path, "UTF-8");
+
+		writer.println("package com.craftinginterpreters.lox;");
+		writer.println();
+		writer.println("import java.util.List;");
+		writer.println();
+		writer.println("abstract class " + baseName + " {");
+
+		// The AST classes.
+		for (String type: types) {
+			String className = type.split(":")[0].trim();
+			String fields = type.split(":")[1].trim();
+			defineType(writer, baseName, className, fields);
+		}
+		
+		writer.println("}");
+		writer.close();
+	}
+
 }
