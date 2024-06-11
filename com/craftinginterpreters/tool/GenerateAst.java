@@ -19,7 +19,7 @@ public class GenerateAst {
 				"Unary		: Token operator, Expr right"));
 	}
 
-	private static void defineAST(
+	private static void defineAst(
 			String outputDir, String baseName, List<String> types)
 			throws IOException {
 		String path = outputDir + "/" + baseName + ".java";
