@@ -79,7 +79,7 @@ public class GenerateAst {
 
 		writer.println("	}");
 
-		// Visitory pattern.
+		// Visitor pattern.
 		writer.println();
 		writer.println("	@Override");
 		writer.println("	<R> R accept(Visitor<R> visitor) {");

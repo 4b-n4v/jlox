@@ -1,13 +1,13 @@
 package com.craftinginterpreters.lox;
 
-class AstPrinter implements Expr.Visitory<String> {
+class AstPrinter implements Expr.Visitor<String> {
 	String print(Expr expr) {
 		return expr.accept(this);
 	}
 
 	@Override
 	public String visitBinaryExpr(Expr.Binary expr) {
-		return parenthesize(expr.operator.lexeme, expr.legt, expr.right);
+		return parenthesize(expr.operator.lexeme, expr.left, expr.right);
 	}
 
 	@Override
