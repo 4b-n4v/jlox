@@ -104,6 +104,13 @@ class Parser {
 		return false;
 	}
 
+	private Token consume(TokenType type, String message) {
+		if (check(type))
+			return advance();
+
+		throw erro(peek(), message);
+	}
+
 	private boolean check(TokenType type) {
 		if (isAtEnd())
 			return false;
