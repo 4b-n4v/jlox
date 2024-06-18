@@ -134,4 +134,10 @@ class Parser {
 	private Token previous() {
 		return tokens.get(current - 1);
 	}
+
+	private ParseError error(Token token, String message) {
+		Lox.error(token, message);
+		return new ParseError();
+	}
+
 }
