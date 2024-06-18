@@ -70,7 +70,7 @@ class Parser {
 	private Expr unary() {
 		if (match(BANG, MINUS)) {
 			Token operator = previous();
-			Epxr right = unary();
+			Expr right = unary();
 			return new Expr.Unary(operator, right);
 		}
 
@@ -111,7 +111,7 @@ class Parser {
 		if (check(type))
 			return advance();
 
-		throw erro(peek(), message);
+		throw error(peek(), message);
 	}
 
 	private boolean check(TokenType type) {
