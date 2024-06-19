@@ -1,4 +1,4 @@
-package com.craftinginterprets.lox;
+package com.craftinginterpreters.lox;
 
 import java.util.List;
 
@@ -87,11 +87,11 @@ class Parser {
 
 	private Expr primary() {
 		if (match(FALSE))
-			return new Expr.literal(false);
+			return new Expr.Literal(false);
 		if (match(TRUE))
-			return new Expr.literal(true);
+			return new Expr.Literal(true);
 		if (match(NIL))
-			return new Expr.literal(null);
+			return new Expr.Literal(null);
 
 		if (match(NUMBER, STRING)) {
 			return new Expr.Literal(previous().literal);
